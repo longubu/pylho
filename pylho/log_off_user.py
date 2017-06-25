@@ -16,16 +16,22 @@ class BashError(Exception):
         return repr(self.msg)
 
 
-def find_user(user_num):
-    """Finds PID associated with login of user_num"""
-    cmd = 'ps -dN|grep pts/%i' % user_num
+def find_user(user_num, tty=False):
+    """Finds PID associated with login of user_num. if tty=True, will search
+    for tty user (aka local)"""
+    if tty:
+        prefix = 'tty'
+    else:
+        prefix = 'pts/'
+
+    cmd = 'ps -dN|grep %s%i' % (prefix, user_num)
     p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE)
     out, err = p.communicate()
 
     if err:
         raise BashError(cmd, err)
 
-    return out.split('pts/')[0].strip()
+    return out.split(prefix)[0].strip()
 
 
 def kill_pid(pid):
@@ -38,11 +44,12 @@ def kill_pid(pid):
         raise BashError(cmd, err)
 
 
-def log_off_user(user_num):
-    """Forcefully logs off user identified user_num (use `who`)"""
-    pid = find_user(user_num)
+def log_off_user(user_num, tty=False):
+    """Forcefully logs off user identified user_num (use `who`). if tty=True,
+    will search for tty user (aka local)"""
+    pid = find_user(user_num, tty=tty)
     kill_pid(pid)
-    pid = find_user(user_num)
+    pid = find_user(user_num, tty=tty)
     if pid:
         raise Exception("Could not log off user: %s" % user_num)
 

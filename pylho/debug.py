@@ -2,6 +2,8 @@
 """
 import time
 import colors
+import numpy as np
+from collections import OrderedDict
 
 
 class Logger(object):
@@ -28,13 +30,29 @@ class Logger(object):
         print("%s %s" % (prefix, text_str))
 
 
-class Timer(Logger):
+class Timer(object):
     """ """
-    def __init__(self, *args, **kwargs):
-        super(Timer, self).__init__(*args, **kwargs)
+    def __init__(self):
+        self.timers = OrderedDict()
 
-    def start(self):
-        self.start_time = time.time()
+    def __call__(self, time_key):
+        self.start(time_key)
 
-    def end(self):
-        return time.time() - self.start_time
+    def start(self, time_key):
+        self.timers[time_key] = time.time()
+
+    def end(self, time_key):
+        if time_key not in self.timers:
+            ret = -1
+        else:
+            ret = time.time() - self.timers[time_key]
+            self.timers[time_key] = ret
+        return ret
+
+    def summary(self):
+        return ['%s: %0.3f secs' % (k, v) for k, v in self.timers.iteritems()]
+
+    def print_summary(self):
+        timers = self.summary()
+        for s in timers:
+            print(s)

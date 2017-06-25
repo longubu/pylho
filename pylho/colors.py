@@ -1,83 +1,210 @@
-# COPYRIGHT
-# ---------
-# All contributions by Long Van Ho:
-# Copyright (c) 2015 Long Van Ho
-# All rights reserved.
-#
-# All other contributions:
-# Copyright (c) 2015, the respective contributors.
-# All rights reserved.
-#
-# LICENSE
-# ---------
-# The MIT License (MIT)
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN
-# ==============================================================================
+'''
+Functions for selecting color.
 
-"""
-Support functions for selecting colors.
-"""
+# Notes
+- Everything will operate in HEX by default, but there are functions to
+    convert to RGB if needed.
+
+# Theory of coloring data visualizations:
+http://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf
+- use color only to serve a particular communication goal
+- use different colors only when they correspond to differences of meaning
+    in the data (don't use it just for visual appeal. it distracts
+    the user from making DIRECT comparisons. comparison graphs => single color)
+    - What purpose will the color serve?
+    - Will it serve this purpose effectively?
+- use soft, natural colors to display most information and bright and/or dark
+    colors to highlight information that requires greater attention
+- for small data points/thin lines: use bright/dark colors.
+- for thicker data points and thicker lines: use a medium shade palette
+- use light/pale colors for parts of tables and graphs that don't display data (axes, text)
+- When using color to encode a sequential range of quantitative values,
+    stick with a single hue (or a small set of closely related hues) and vary
+    intensity from pale colors for low values to increasingly darker and brighter
+    colors for high values.
+
+- Bars: Use a distinct hue of medium intensity for each data series.
+- Lines: For thin lines, use a distinct hue of fairly high intensity for each; otherwise,
+    use distinct hues of medium intensity.
+- Data Points: For small points, use a distinct hue of fairly high intensity for each;
+    otherwise, use distinct hues of medium intensity
+
+# Resources
+- http://colorbrewer2.org/
+- http://www.colourlovers.com/palettes/most-favorites/all-time/meta
+'''
 import numpy as np
 
-# list taken from http://www.randalolson.com/2014/06/28/how-to-make-beautiful-data-visualizations-in-python-with-matplotlib/
-# These are the "Tableau 20" colors as RGB.
-tableau20 = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120),
-             (44, 160, 44), (152, 223, 138), (214, 39, 40), (255, 152, 150),
-             (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),
-             (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199),
-             (188, 189, 34), (219, 219, 141), (23, 190, 207), (158, 218, 229)]
 
-tableau20 = np.array(tableau20)
+class palettes:
+    '''list of carefully chosen palettes. view them using `colors.view_palette`
+    '''
+    # qualitative
+    light = ['#FBB4AE', '#B3CDE3', '#CCEBC5', '#DECBE4', '#FED9A6', '#FFFFCC', '#E5D8BD', '#FDDAEC']
+    light_dark = ['#A6CEE3', '#1F78B4', '#B2DF8A', '#33A02C', '#FB9A99', '#E31A1C', '#FDBF6F', '#FF7F00']
+    medium = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3', '#FDB462', '#B3DE69', '#FCCDE5']
+    dark = ['#E41A1C', '#377EB8', '#4DAF4A', '#984EA3', '#FF7F00', '#FFFF33', '#A65628', '#F781BF']
+
+    medium_12 = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3', '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', '#BC80BD', '#CCEBC5', '#FFED6F']
+    dark_12 = ['#A6CEE3', '#1F78B4', '#B2DF8A', '#33A02C', '#FB9A99', '#E31A1C', '#FDBF6F', '#FF7F00', '#CAB2D6', '#6A3D9A', '#FFFF99', '#B15928']
+
+    # sequential
+    hot = ['#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
+    cold = ['#F7FCF0', '#E0F3DB', '#CCEBC5', '#A8DDB5', '#7BCCC4', '#4EB3D3', '#2B8CBE', '#08589E']
+
+    # diverging
+    hot_cold = ['#D73027', '#F46D43', '#FDAE61', '#FEE090', '#E0F3F8', '#ABD9E9', '#74ADD1', '#4575B4']
+
+    # set default
+    default = medium
+
+    # colourlover ones
+    giant_goldfish = ['#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900', '#69D2E7', '#A7DBD8', '#E0E4CC']
+    emo_kid =  ['#556270', '#4ECDC4', '#C7F464', '#FF6B6B', '#C44D58', '#556270', '#4ECDC4', '#C7F464']
+    ring_toss = ['#94DBDF', '#8485B5', '#FC8EAB', '#DABEB2', '#FCF6D4', '#94DBDF', '#8485B5', '#FC8EAB']
 
 
+def view_palette(color_palette, a=1.0):
+    '''views a color palette (list of hex).
 
-def color_text(text, color=None):
-    """Returns text with ascii colors -- only displayed during printing"""
-    colors = {'BLUE': '\033[34m',
-              'GREEN': '\033[32m',
-              'GREY': '\033[0m',
-              'RED': '\033[31m',
-              'YELLOW': '\033[33m',
-              'CYAN': '\033[36m',
-              'PURPLE': '\033[35m',
-              'WHITE': '\033[37m',
-              'BLACK': '\033[30m'}
+    # Arguments
+    color_palette: [list] list of hex strings of each color
 
-    if color is None:
-        color = 'GREY'
-    color = color.upper()
-    if color not in colors:
-        raise RuntimeError("Do not recognize %s" % color)
+    a: [float] [Optional] Alpha amount to apply
+    '''
+    import matplotlib.pyplot as plt
 
-    return '%s%s%s' % (colors[color], text, colors['GREY'])
+    color_palette = _check_get_palette(color_palette)
+    n = len(color_palette)
+
+    plt.figure()
+    plt.clf()
+    plt.scatter(range(n), [1] * n, marker='s', s=500, c=color_palette, alpha=a)
+    plt.xlim(-1, n)
+    plt.ylim(0.5, 1.5)
+    plt.xticks([])
+    plt.yticks([])
+    plt.grid(alpha=0.25)
+    fig = plt.gcf()
+    plt.show()
+    return fig
+
+
+class ascii:
+    '''List of ascii prefix to apply coloring to strings in bash/terminal'''
+    BLUE = '\033[34m'
+    GREEN = '\033[32m'
+    GREY = '\033[0m'
+    RED = '\033[31m'
+    YELLOW = '\033[33m'
+    CYAN = '\033[36m'
+    PURPLE = '\033[35m'
+    WHITE = '\033[37m'
+    BLACK = '\033[30m'
+    DEFAULT = GREY
+
+
+def color_string(string, color):
+    '''Returns string modified with ascii coloring for printing in terminal.
+
+    # Arguments
+    string: [str] string to color
+
+    # Returns
+    string: modified string with ascii coloring.
+    '''
+    if not hasattr(ascii, color.upper()):
+        raise RuntimeError('Do not recognize color: %s' % color)
+
+    return '%s%s%s' % (getattr(ascii, color.uper()), string, ascii.DEFAULT)
+
+
+def print_color(string, color):
+    '''Prints string in certain color. See `colors.ascii` for list of colors'''
+    print(color_string(string, color))
+
+
+def _check_get_palette(color_palette):
+    if color_palette is None:
+        color_palette = palettes.default
+    elif isinstance(color_palette, list):
+        pass
+    else:
+        color_palette = getattr(palettes, color_palette)
+
+    return color_palette
+
+
+def random(n=1, color_palette=None):
+    '''Randomly select n colors from a chosen color_palette
+    (from colors.palette bank).
+
+    # Arguments
+    n: [int] Number of colors to choose from palette
+
+    color_palette: [str] Name of color palette in colors.palette to use.
+        If list or array-like, will assume a color palette list is
+        already passed in and will randomly select from that list.
+
+    # Return
+    ret: [list] list of colors in HEX
+    '''
+    color_palette = _check_get_palette(color_palette)
+    if len(color_palette) < n:
+        raise RuntimeError('Not enough colors in palette (%s with %i colors) to choose %i.' % (color_palette, len(color_palette), n))
+
+    idxs = np.random.choice(np.arange(len(color_palette)), size=n, replace=False)
+    return list(np.array(color_palette)[idxs])
+
+
+def color_array(arr, color_palette=None):
+    '''
+    Returns array containig color for each unique element in arr.
+
+    # Example:
+    arr = [1, 1, 0, 0]
+    return = ['blue', 'blue', 'green', 'green']
+
+    # Arguments
+    arr: ndarray, iterable
+        List of labels or distinguishing elements to assign colors to
+
+    color_palette: [str] Name of color palette in colors.palette to use.
+        If list or array-like, will assume a color palette list is
+        already passed in and will randomly select from that list.
+
+    # Returns
+    color_arr: ndarray of HEX colors
+        Returns an array where each element corresponds to a color within
+        `arr`, mapped by unique elements of arr.
+    '''
+    color_palette = _check_get_palette(color_palette)
+    uniques = np.unique(arr)
+    n = len(uniques)
+    if len(color_palette) < n:
+        raise RuntimeError('Not enough colors in palette (%s with %i colors) to choose %i.' % (color_palette, len(color_palette), n))
+
+    rng_colors = random(n=n, color_palette=color_palette)
+    colors = dict(zip(uniques, rng_colors))
+    color_arr = np.array([colors[x] for x in arr])
+    return color_arr
 
 
 def hex_to_rgb(value):
-    """Converts hex string to RGB tuple of length 3"""
-    value = value.lstrip('#')
-    lv = len(value)
-    return tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+    '''Converts hex string to RGB tuple of length 3. If list or arr of
+    hex strings, will convert each element to its RGB equivalent.'''
+    if hasattr(value, '__len__') and (not isinstance(value, str)):
+        ret = [hex_to_rgb(x) for x in value]
+    else:
+        value = value.lstrip('#')
+        lv = len(value)
+        ret = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
+    return ret
 
 
 def rgb_to_hex(rgb):
-    """Converts iterable rgb array to hex string. Can also be an iterable
-    containing rgb arrays, in which this will return a list of hex strings"""
+    '''Converts iterable rgb array to hex string. Can also be an iterable
+    containing rgb arrays, in which this will return a list of hex strings'''
     rgb = np.array(rgb)
     shape = rgb.shape
     # if tuple/iterable of len(3) -- aka single RGB
@@ -90,62 +217,3 @@ def rgb_to_hex(rgb):
         raise RuntimeError("Do not understand %s to convert to hex" % rgb)
 
     return ret
-
-
-def get_rng_color(n=1, normed=True, color_list=tableau20):
-    """Gets random `n` RGB values from tableau20 list"""
-    if n > len(color_list):
-        raise RuntimeError("len(color_list) !> n [%i !> %i]"
-                           % (len(color_list), n))
-    idxs = np.random.choice(np.arange(len(color_list)), size=n, replace=False)
-    rgbs = tableau20[idxs]
-    if normed:
-        rgbs = np.divide(rgbs, 255.)
-
-    return rgbs
-
-
-def get_color_arr(arr, colors='random', normed=True):
-    """
-    Returns a list of colors corresponding to each element in `arr`.
-
-    Parameters
-    ------
-    arr: ndarray, iterable
-        List of labels or distinguishing elements to assign colors to
-
-    colors: dict, str, default='random'
-        Dictionary mapping each unique element in arr to a specific color.
-        Else, if `colors=random`, will randomly assign a color to each
-        unique element in `arr`.
-
-    normed: bool, default=True
-        Whether to return the RGB values within [0, 255], or [0, 1.0]
-
-    Returns
-    ------
-    color_arr: ndarray of RGB tuples
-        Returns an array where each element corresponds to a color within
-        `arr`, mapped by unique elements of arr. If normed is True,
-        returns RGB values between [0, 1.0], else returns values in [0, 255]
-    """
-    uniques = np.unique(arr)
-
-    if isinstance(colors, dict):
-        # check if all keys of colors are present in unique(arr)
-        color_keys = np.sort(colors.keys())
-        if not np.all(np.equal(color_keys, uniques)):
-            raise RuntimeError("Unique values of `arr` are not all contained"
-                               "within keys of `colors`. Found \n"
-                               "unique(arr) = %s\n"
-                               "colors.keys() = %s"
-                               % (list(uniques), list(color_keys)))
-
-    elif colors == 'random':
-        rng_colors = get_rng_color(n=len(uniques), normed=normed)
-        colors = dict(zip(uniques, rng_colors))
-    else:
-        raise RuntimeError("Do not recognize colors = %s" % colors)
-
-    color_arr = np.array([colors[x] for x in arr])
-    return color_arr

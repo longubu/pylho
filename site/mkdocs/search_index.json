@@ -1,0 +1,184 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "pylho: Non-general, but useful python functions\n\n\nBob lob law\n\n\nModules\n\n\n\n\nAlerts\n: Functions to send alerts via online/mobile messaging\n\n\nColors\n: Helper functions for selecting color palettes.\n\n\nTerminal\n: Utility functions for dealing with bash terminal\n\n\nDebug\n: Functions useful for debugging.\n\n\nLog_Off_User\n: Function to log off fellow bash user (use !who to look for user's id#)", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#pylho-non-general-but-useful-python-functions", 
+            "text": "Bob lob law", 
+            "title": "pylho: Non-general, but useful python functions"
+        }, 
+        {
+            "location": "/#modules", 
+            "text": "Alerts : Functions to send alerts via online/mobile messaging  Colors : Helper functions for selecting color palettes.  Terminal : Utility functions for dealing with bash terminal  Debug : Functions useful for debugging.  Log_Off_User : Function to log off fellow bash user (use !who to look for user's id#)", 
+            "title": "Modules"
+        }, 
+        {
+            "location": "/alerts/", 
+            "text": "Alerts\n\n\nFunctions to send alerts via online/mobile messaging\n\n\nFunctions\n\n\nsend_text\n\n\nsend_text(msg)\n\n\n\n\nSends text message to my number. Don't use this plz\n\n\nArguments\n\n\n\n\nmsg\n: [str] Message to send\n\n\n\n\n\n\nsend_slack\n\n\nsend_slack(msg, channel='vpicu-gpu')\n\n\n\n\nSends message to vpicu.vpicu-gpu channel as ButterBot\n\n\nArguments\n\n\n\n\nmsg\n: [str] Message to send", 
+            "title": "Alerts"
+        }, 
+        {
+            "location": "/alerts/#alerts", 
+            "text": "Functions to send alerts via online/mobile messaging", 
+            "title": "Alerts"
+        }, 
+        {
+            "location": "/alerts/#functions", 
+            "text": "", 
+            "title": "Functions"
+        }, 
+        {
+            "location": "/alerts/#send_text", 
+            "text": "send_text(msg)  Sends text message to my number. Don't use this plz  Arguments   msg : [str] Message to send", 
+            "title": "send_text"
+        }, 
+        {
+            "location": "/alerts/#send_slack", 
+            "text": "send_slack(msg, channel='vpicu-gpu')  Sends message to vpicu.vpicu-gpu channel as ButterBot  Arguments   msg : [str] Message to send", 
+            "title": "send_slack"
+        }, 
+        {
+            "location": "/colors/", 
+            "text": "Colors\n\n\nHelper functions for selecting color palettes.\n\n\nFunctions\n\n\nview_palette\n\n\nview_palette(color_palette, a=1.0)\n\n\n\n\nviews a color palette (list of hex).\n\n\nArguments\n\n\n\n\n\n\ncolor_palette\n: [list] list of hex strings of each color\n\n\n\n\n\n\na\n: [float] [Optional] Alpha amount to apply\n\n\n\n\n\n\n\n\ncolor_string\n\n\ncolor_string(string, color)\n\n\n\n\nReturns string modified with ascii coloring for printing in terminal.\n\n\nArguments\n\n\n\n\nstring\n: [str] string to color\n\n\n\n\nReturns\n\n\n\n\nstring\n: modified string with ascii coloring.\n\n\n\n\n\n\nprint_color\n\n\nprint_color(string, color)\n\n\n\n\nPrints string in certain color. See \ncolors.ascii\n for list of colors\n\n\nrandom\n\n\nrandom(n=1, color_palette=None)\n\n\n\n\nRandomly select n colors from a chosen color_palette\n(from colors.palette bank).\n\n\nArguments\n\n\n\n\n\n\nn\n: [int] Number of colors to choose from palette\n\n\n\n\n\n\ncolor_palette\n: [str] Name of color palette in colors.palette to use.\nIf list or array-like, will assume a color palette list is\nalready passed in and will randomly select from that list.\n\n\n\n\n\n\nReturn\n\n\n\n\nret\n: [list] list of colors in HEX\n\n\n\n\n\n\ncolor_array\n\n\ncolor_array(arr, color_palette=None)\n\n\n\n\nReturns array containig color for each unique element in arr.\n\n\n\n\n_Example\n_:\n\n\n\n\narr = [1, 1, 0, 0]\nreturn = ['blue', 'blue', 'green', 'green']\n\n\nArguments\n\n\n\n\n\n\narr\n: ndarray, iterable\nList of labels or distinguishing elements to assign colors to\n\n\n\n\n\n\ncolor_palette\n: [str] Name of color palette in colors.palette to use.\nIf list or array-like, will assume a color palette list is\nalready passed in and will randomly select from that list.\n\n\n\n\n\n\nReturns\n\n\n\n\ncolor_arr\n: ndarray of HEX colors\nReturns an array where each element corresponds to a color within\n\narr\n, mapped by unique elements of arr.\n\n\n\n\n\n\nhex_to_rgb\n\n\nhex_to_rgb(value)\n\n\n\n\nConverts hex string to RGB tuple of length 3. If list or arr of\nhex strings, will convert each element to its RGB equivalent.\n\n\n\n\nrgb_to_hex\n\n\nrgb_to_hex(rgb)\n\n\n\n\nConverts iterable rgb array to hex string. Can also be an iterable\ncontaining rgb arrays, in which this will return a list of hex strings", 
+            "title": "Colors"
+        }, 
+        {
+            "location": "/colors/#colors", 
+            "text": "Helper functions for selecting color palettes.", 
+            "title": "Colors"
+        }, 
+        {
+            "location": "/colors/#functions", 
+            "text": "", 
+            "title": "Functions"
+        }, 
+        {
+            "location": "/colors/#view_palette", 
+            "text": "view_palette(color_palette, a=1.0)  views a color palette (list of hex).  Arguments    color_palette : [list] list of hex strings of each color    a : [float] [Optional] Alpha amount to apply", 
+            "title": "view_palette"
+        }, 
+        {
+            "location": "/colors/#color_string", 
+            "text": "color_string(string, color)  Returns string modified with ascii coloring for printing in terminal.  Arguments   string : [str] string to color   Returns   string : modified string with ascii coloring.", 
+            "title": "color_string"
+        }, 
+        {
+            "location": "/colors/#print_color", 
+            "text": "print_color(string, color)", 
+            "title": "print_color"
+        }, 
+        {
+            "location": "/colors/#prints-string-in-certain-color-see-colorsascii-for-list-of-colors", 
+            "text": "", 
+            "title": "Prints string in certain color. See colors.ascii for list of colors"
+        }, 
+        {
+            "location": "/colors/#random", 
+            "text": "random(n=1, color_palette=None)  Randomly select n colors from a chosen color_palette\n(from colors.palette bank).  Arguments    n : [int] Number of colors to choose from palette    color_palette : [str] Name of color palette in colors.palette to use.\nIf list or array-like, will assume a color palette list is\nalready passed in and will randomly select from that list.    Return   ret : [list] list of colors in HEX", 
+            "title": "random"
+        }, 
+        {
+            "location": "/colors/#color_array", 
+            "text": "color_array(arr, color_palette=None)  Returns array containig color for each unique element in arr.   _Example _:   arr = [1, 1, 0, 0]\nreturn = ['blue', 'blue', 'green', 'green']  Arguments    arr : ndarray, iterable\nList of labels or distinguishing elements to assign colors to    color_palette : [str] Name of color palette in colors.palette to use.\nIf list or array-like, will assume a color palette list is\nalready passed in and will randomly select from that list.    Returns   color_arr : ndarray of HEX colors\nReturns an array where each element corresponds to a color within arr , mapped by unique elements of arr.", 
+            "title": "color_array"
+        }, 
+        {
+            "location": "/colors/#hex_to_rgb", 
+            "text": "hex_to_rgb(value)  Converts hex string to RGB tuple of length 3. If list or arr of\nhex strings, will convert each element to its RGB equivalent.", 
+            "title": "hex_to_rgb"
+        }, 
+        {
+            "location": "/colors/#rgb_to_hex", 
+            "text": "rgb_to_hex(rgb)  Converts iterable rgb array to hex string. Can also be an iterable\ncontaining rgb arrays, in which this will return a list of hex strings", 
+            "title": "rgb_to_hex"
+        }, 
+        {
+            "location": "/terminal/", 
+            "text": "terminal\n\n\nUtility functions for dealing with bash terminal. \n\n\nFunctions\n\n\nParticularly useful ones are \nset_pandas_terminal\n, which makes printing a dataframe in terminal much neater, and \nrun_script\n to run a python script with slack-logging (will print to vpicu.vpicu-gpu channel).\n\n\nrun_script\n\n\nrun_script(driver_path, description=None, args=None, verbose=True)\n\n\n\n\nRuns python script with logging information sent to vpicu-gpu slack chanenl\n\n\nArgument\n\n\n\n\n\n\ndriver_path\n: [str] Path to python file\n\n\n\n\n\n\ndescription\n: [str] Description associated with run to prefix logs. If\n     None, will use driver_path basename\n\n\n\n\n\n\nargs\n: [str] Arguments to pass to driver_path\n\n\n\n\n\n\nverbose\n: [bool] Whether or not to prints stdout and stderr or script to\n local terminal\n\n\n\n\n\n\n\n\nset_pandas_terminal\n\n\nset_pandas_terminal(verbose=0)\n\n\n\n\nResets terminal for neater printing of dataframes\n\n\nprint_dfs\n\n\nprint_dfs(df1, df2, name1='df1', name2='df2')\n\n\n\n\nNeatly prints to dataframes next to each other.\n\n\nArguments\n\n\n\n\ndf1\n: [pd.DataFrame] df1\n\n\ndf2\n: [pd.DataFrame] df2\n\n\nname1\n: [str] Name to title df1\n\n\nname2\n: [str] Nmae to title df2", 
+            "title": "Terminal"
+        }, 
+        {
+            "location": "/terminal/#terminal", 
+            "text": "Utility functions for dealing with bash terminal.", 
+            "title": "terminal"
+        }, 
+        {
+            "location": "/terminal/#functions", 
+            "text": "Particularly useful ones are  set_pandas_terminal , which makes printing a dataframe in terminal much neater, and  run_script  to run a python script with slack-logging (will print to vpicu.vpicu-gpu channel).", 
+            "title": "Functions"
+        }, 
+        {
+            "location": "/terminal/#run_script", 
+            "text": "run_script(driver_path, description=None, args=None, verbose=True)  Runs python script with logging information sent to vpicu-gpu slack chanenl  Argument    driver_path : [str] Path to python file    description : [str] Description associated with run to prefix logs. If\n     None, will use driver_path basename    args : [str] Arguments to pass to driver_path    verbose : [bool] Whether or not to prints stdout and stderr or script to\n local terminal", 
+            "title": "run_script"
+        }, 
+        {
+            "location": "/terminal/#set_pandas_terminal", 
+            "text": "set_pandas_terminal(verbose=0)", 
+            "title": "set_pandas_terminal"
+        }, 
+        {
+            "location": "/terminal/#resets-terminal-for-neater-printing-of-dataframes", 
+            "text": "", 
+            "title": "Resets terminal for neater printing of dataframes"
+        }, 
+        {
+            "location": "/terminal/#print_dfs", 
+            "text": "print_dfs(df1, df2, name1='df1', name2='df2')  Neatly prints to dataframes next to each other.  Arguments   df1 : [pd.DataFrame] df1  df2 : [pd.DataFrame] df2  name1 : [str] Name to title df1  name2 : [str] Nmae to title df2", 
+            "title": "print_dfs"
+        }, 
+        {
+            "location": "/debug/", 
+            "text": "Debug\n\n\nFunctions useful for debugging.\n\n\nTODO: update documentation\n\n\nFunctions", 
+            "title": "Debug"
+        }, 
+        {
+            "location": "/debug/#debug", 
+            "text": "Functions useful for debugging.  TODO: update documentation", 
+            "title": "Debug"
+        }, 
+        {
+            "location": "/debug/#functions", 
+            "text": "", 
+            "title": "Functions"
+        }, 
+        {
+            "location": "/log_off_user/", 
+            "text": "log_off_user\n\n\nFunction to log off fellow bash user (use !who to look for user's id#)\n\n\nFunctions\n\n\nFunctions for dealing with linux users. Useful one is: \nlog_off_user\n to forcefully log off your previously-lost terminals.\n\n\nfind_user\n\n\nfind_user(user_num, tty=False)\n\n\n\n\nFinds PID associated with login of user_num. if tty=True, will search\nfor tty user (aka local)\n\n\n\n\nkill_pid\n\n\nkill_pid(pid)\n\n\n\n\nKills -9 based on PID\n\n\nlog_off_user\n\n\nlog_off_user(user_num, tty=False)\n\n\n\n\nForcefully logs off user identified user_num (use \nwho\n). if tty=True,\nwill search for tty user (aka local)", 
+            "title": "Log_Off_User"
+        }, 
+        {
+            "location": "/log_off_user/#log_off_user", 
+            "text": "Function to log off fellow bash user (use !who to look for user's id#)", 
+            "title": "log_off_user"
+        }, 
+        {
+            "location": "/log_off_user/#functions", 
+            "text": "Functions for dealing with linux users. Useful one is:  log_off_user  to forcefully log off your previously-lost terminals.", 
+            "title": "Functions"
+        }, 
+        {
+            "location": "/log_off_user/#find_user", 
+            "text": "find_user(user_num, tty=False)  Finds PID associated with login of user_num. if tty=True, will search\nfor tty user (aka local)", 
+            "title": "find_user"
+        }, 
+        {
+            "location": "/log_off_user/#kill_pid", 
+            "text": "kill_pid(pid)", 
+            "title": "kill_pid"
+        }, 
+        {
+            "location": "/log_off_user/#kills-9-based-on-pid", 
+            "text": "", 
+            "title": "Kills -9 based on PID"
+        }, 
+        {
+            "location": "/log_off_user/#log_off_user_1", 
+            "text": "log_off_user(user_num, tty=False)  Forcefully logs off user identified user_num (use  who ). if tty=True,\nwill search for tty user (aka local)", 
+            "title": "log_off_user"
+        }
+    ]
+}

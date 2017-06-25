@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Terminal - Pylho Documentation</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Terminal";
+    var mkdocs_page_input_path = "terminal.md";
+    var mkdocs_page_url = "/terminal/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-61785484-1', '[pylho].io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Pylho Documentation</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Home</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../alerts/">Alerts</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../colors/">Colors</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Terminal</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#terminal">terminal</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#functions">Functions</a></li>
+                
+                    <li><a class="toctree-l4" href="#run_script">run_script</a></li>
+                
+                    <li><a class="toctree-l4" href="#set_pandas_terminal">set_pandas_terminal</a></li>
+                
+                    <li><a class="toctree-l4" href="#resets-terminal-for-neater-printing-of-dataframes">Resets terminal for neater printing of dataframes</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../debug/">Debug</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../log_off_user/">Log_Off_User</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Pylho Documentation</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Terminal</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="terminal">terminal</h1>
+<p>Utility functions for dealing with bash terminal. </p>
+<h1 id="functions">Functions</h1>
+<p>Particularly useful ones are <code>set_pandas_terminal</code>, which makes printing a dataframe in terminal much neater, and <code>run_script</code> to run a python script with slack-logging (will print to vpicu.vpicu-gpu channel).</p>
+<h3 id="run_script">run_script</h3>
+<pre><code class="python">run_script(driver_path, description=None, args=None, verbose=True)
+</code></pre>
+
+<p>Runs python script with logging information sent to vpicu-gpu slack chanenl</p>
+<p><strong>Argument</strong></p>
+<ul>
+<li>
+<p><strong>driver_path</strong>: [str] Path to python file</p>
+</li>
+<li>
+<p><strong>description</strong>: [str] Description associated with run to prefix logs. If
+     None, will use driver_path basename</p>
+</li>
+<li>
+<p><strong>args</strong>: [str] Arguments to pass to driver_path</p>
+</li>
+<li>
+<p><strong>verbose</strong>: [bool] Whether or not to prints stdout and stderr or script to
+ local terminal</p>
+</li>
+</ul>
+<hr />
+<h3 id="set_pandas_terminal">set_pandas_terminal</h3>
+<pre><code class="python">set_pandas_terminal(verbose=0)
+</code></pre>
+
+<h2 id="resets-terminal-for-neater-printing-of-dataframes">Resets terminal for neater printing of dataframes</h2>
+<h3 id="print_dfs">print_dfs</h3>
+<pre><code class="python">print_dfs(df1, df2, name1='df1', name2='df2')
+</code></pre>
+
+<p>Neatly prints to dataframes next to each other.</p>
+<p><strong>Arguments</strong></p>
+<ul>
+<li><strong>df1</strong>: [pd.DataFrame] df1</li>
+<li><strong>df2</strong>: [pd.DataFrame] df2</li>
+<li><strong>name1</strong>: [str] Name to title df1</li>
+<li><strong>name2</strong>: [str] Nmae to title df2</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../debug/" class="btn btn-neutral float-right" title="Debug">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../colors/" class="btn btn-neutral" title="Colors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+    
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../colors/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../debug/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script src="../js/theme.js"></script>
+
+</body>
+</html>

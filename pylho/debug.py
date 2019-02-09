@@ -1,7 +1,7 @@
 """
 """
 import time
-import colors
+from . import colors
 import numpy as np
 from collections import OrderedDict
 
@@ -17,7 +17,7 @@ class Logger(object):
     def __call__(self, text_str, verbose=0, color=None):
         # verbose: -1 => warning, verbose -2 => error
         # if no verbosity
-        if (self.verbosity_level < verbose or verbose == 0) and verbose != -2:
+        if (self.verbosity_level <= verbose or verbose == 0) and verbose != -2:
             return
         # else print depending on level
 
@@ -26,7 +26,7 @@ class Logger(object):
         if color is None:
             color = self.colors[v]
 
-        prefix = colors.color_text(self.prefix, color) + '... ' * v
+        prefix = colors.color_string(self.prefix, color) + '... ' * v
         print("%s %s" % (prefix, text_str))
 
 

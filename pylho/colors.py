@@ -1,4 +1,4 @@
-'''
+f'''
 Functions for selecting color.
 
 # Notes
@@ -32,8 +32,12 @@ http://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_us
 # Resources
 - http://colorbrewer2.org/
 - http://www.colourlovers.com/palettes/most-favorites/all-time/meta
+
+#TODO: order = complimentary
+       order = sequential
 '''
 import numpy as np
+from itertools import cycle
 
 
 class palettes:
@@ -48,6 +52,9 @@ class palettes:
     medium_12 = ['#8DD3C7', '#FFFFB3', '#BEBADA', '#FB8072', '#80B1D3', '#FDB462', '#B3DE69', '#FCCDE5', '#D9D9D9', '#BC80BD', '#CCEBC5', '#FFED6F']
     dark_12 = ['#A6CEE3', '#1F78B4', '#B2DF8A', '#33A02C', '#FB9A99', '#E31A1C', '#FDBF6F', '#FF7F00', '#CAB2D6', '#6A3D9A', '#FFFF99', '#B15928']
 
+    category20_alt = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7', '#dbdb8d', '#9edae5']
+    category20_paried = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
+
     # sequential
     hot = ['#FFFFCC', '#FFEDA0', '#FED976', '#FEB24C', '#FD8D3C', '#FC4E2A', '#E31A1C', '#B10026']
     cold = ['#F7FCF0', '#E0F3DB', '#CCEBC5', '#A8DDB5', '#7BCCC4', '#4EB3D3', '#2B8CBE', '#08589E']
@@ -55,13 +62,37 @@ class palettes:
     # diverging
     hot_cold = ['#D73027', '#F46D43', '#FDAE61', '#FEE090', '#E0F3F8', '#ABD9E9', '#74ADD1', '#4575B4']
 
-    # set default
-    default = medium
-
     # colourlover ones
+    longs = ['#FA6900', '#69D2E7', '#8485B5', '#FF6B6B', '#C7F464', '#556270']
+    longs2 = ['#FA6900', '#33A02C', '#0099dc', '#6A3D9A', '#E31A1C', '#556270']
+
     giant_goldfish = ['#69D2E7', '#A7DBD8', '#E0E4CC', '#F38630', '#FA6900', '#69D2E7', '#A7DBD8', '#E0E4CC']
     emo_kid =  ['#556270', '#4ECDC4', '#C7F464', '#FF6B6B', '#C44D58', '#556270', '#4ECDC4', '#C7F464']
     ring_toss = ['#94DBDF', '#8485B5', '#FC8EAB', '#DABEB2', '#FCF6D4', '#94DBDF', '#8485B5', '#FC8EAB']
+
+    # set default
+    default = category20_alt
+
+
+class colour_wheel(object):
+    '''infinite loop colour wheel, given a palette. use next(cw) for next color
+    '''
+    def __init__(self, color_palette=None):
+        color_palette = _check_get_palette(color_palette)
+        self.color_palette = color_palette
+        self.cycle_color_palette = cycle(color_palette)
+
+    def __len__(self):
+        return len(self.color_palette)
+
+    def __next__(self):
+        return next(self.cycle_color_palette)
+
+    def next(self):
+        return next(self.cycle_color_palette)
+
+    def __getitem__(self, i):
+        return self.color_palette[i]
 
 
 def view_palette(color_palette, a=1.0):
@@ -116,7 +147,7 @@ def color_string(string, color):
     if not hasattr(ascii, color.upper()):
         raise RuntimeError('Do not recognize color: %s' % color)
 
-    return '%s%s%s' % (getattr(ascii, color.uper()), string, ascii.DEFAULT)
+    return '%s%s%s' % (getattr(ascii, color.upper()), string, ascii.DEFAULT)
 
 
 def print_color(string, color):
@@ -190,16 +221,20 @@ def color_array(arr, color_palette=None):
     return color_arr
 
 
-def hex_to_rgb(value):
+def hex_to_rgb(value, normalize=False):
     '''Converts hex string to RGB tuple of length 3. If list or arr of
     hex strings, will convert each element to its RGB equivalent.'''
     if hasattr(value, '__len__') and (not isinstance(value, str)):
-        ret = [hex_to_rgb(x) for x in value]
+        ret = [hex_to_rgb(x, normalize=normalize) for x in value]
     else:
         value = value.lstrip('#')
         lv = len(value)
-        ret = tuple(int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3))
-    return ret
+        ret = [int(value[i:i + lv // 3], 16) for i in range(0, lv, lv // 3)]
+
+        if normalize:
+            ret = [x / 255. for x in ret]
+
+    return tuple(ret)
 
 
 def rgb_to_hex(rgb):
@@ -208,7 +243,7 @@ def rgb_to_hex(rgb):
     rgb = np.array(rgb)
     shape = rgb.shape
     # if tuple/iterable of len(3) -- aka single RGB
-    if shape == (3L,):
+    if shape == (3,):
         ret = '#%02x%02x%02x' % tuple(rgb)
     # else if rgb is a batch of rgbs, recursively use rgb_to_hex
     elif shape[1] == 3:

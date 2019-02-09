@@ -45,5 +45,6 @@ def send_slack(msg, token=None, channel='#vpicu-gpu'):
     if token is None:
         from personal_keys import Long
         butterbot_info = Long.butterbot
+
     sc = SlackClient(**butterbot_info)
     sc.api_call("chat.postMessage", channel=channel, text=msg)
